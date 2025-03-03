@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ComputerService } from '../computer.service';
+import { MessageService } from '../message.service';
 
 export interface Computer {
   processor: string;
@@ -16,22 +17,26 @@ export interface Computer {
   styleUrl: './computer-list.component.css',
 })
 export class ComputerListComponent {
-
   computerList: Computer[] = [];
 
-  constructor(private computerService: ComputerService) {}
+  constructor(
+    private computerService: ComputerService,
+    private messageService: MessageService
+  ) {}
 
-  ngOnInit(): void{
-    this.getComputers()
+  ngOnInit(): void {
+    this.getComputers();
   }
   selectedComputer?: Computer;
   onSelect(computer: Computer): void {
     this.selectedComputer = computer;
+    this.messageService.add(`[Computer: Selected  CPU = ${computer.processor}]`);
   }
 
   getComputers(): void {
-    this.computerService.getComputers()
-        .subscribe(computer => this.computerList = computer);
+    this.computerService
+      .getComputers()
+      .subscribe((computer) => (this.computerList = computer));
   }
 }
 
