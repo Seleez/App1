@@ -41,7 +41,7 @@ export class ComputerService {
       },
     ];
     
-    getComputers():   Observable<Computer[]>{
+    getComputers():Observable<Computer[]>{
       return of(this.computerList)
     }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { ComputerService } from '../computer.service';
 
 export interface Computer {
   processor: string;
@@ -15,41 +16,22 @@ export interface Computer {
   styleUrl: './computer-list.component.css',
 })
 export class ComputerListComponent {
-  computerList: Computer[] = [
-    {
-      processor: 'Intel I3-12200',
-      ram: 16,
-      GPU: 'RTX 4090',
-      Motherboard: 'Intel',
-    },
-    {
-      processor: 'Intel I5-12200',
-      ram: 32,
-      GPU: 'RTX 2060',
-      Motherboard: 'Intel',
-    },
-    {
-      processor: 'Intel I7-12200',
-      ram: 128,
-      GPU: 'RTX 4090',
-      Motherboard: 'Intel',
-    },
-    {
-      processor: 'Intel I9-12200',
-      ram: 64,
-      GPU: 'RTX 1030',
-      Motherboard: 'Intel',
-    },
-    {
-      processor: 'Intel I3-14020',
-      ram: 16,
-      GPU: 'RTX 3090',
-      Motherboard: 'Intel',
-    },
-  ];
+
+  computerList: Computer[] = [];
+
+  constructor(private computerService: ComputerService) {}
+
+  ngOnInit(): void{
+    this.getComputers()
+  }
   selectedComputer?: Computer;
   onSelect(computer: Computer): void {
     this.selectedComputer = computer;
+  }
+
+  getComputers(): void {
+    this.computerService.getComputers()
+        .subscribe(computer => this.computerList = computer);
   }
 }
 
