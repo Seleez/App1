@@ -1,0 +1,14 @@
+<ul>
+    <li *ngFor="let computer of computerList">
+        <button type="button" (click)="onSelect(computer)">
+            <p>Procesor: {{computer.processor}}</p>
+        </button>
+    </li>
+</ul>
+
+<div *ngIf="selectedComputer">
+    <p>Procesor: {{selectedComputer.processor}}</p>
+    <p>RAM: {{selectedComputer.ram}}</p>
+    <p>GPU: {{selectedComputer.GPU}}</p>
+    <p>MOBO: {{selectedComputer.Motherboard}}</p>
+</div>
